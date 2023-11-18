@@ -33,7 +33,7 @@ const getAll = async(page = 1, filter = '', tipo?: 'Entrada' | 'Saida'): Promise
 	try{
 		const filtro = tipo ? `tipo=${tipo}` : '';
 
-		const { data, headers } = await Api.get( `/formadepagamentos?${filtro}_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nomeCompleto_like=${filter}`);
+		const { data, headers } = await Api.get( `/formadepagamentos?${filtro}_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nome_like=${filter}`);
 
 		if(data){
 			return{

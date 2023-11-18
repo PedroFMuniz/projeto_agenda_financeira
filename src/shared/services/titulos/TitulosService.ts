@@ -33,7 +33,7 @@ const getAll = async(page = 1, filter = '', subcategoriaId?: number, contaId?: n
 	try{
 		const filtro = subcategoriaId ? `subcategoriaId=${subcategoriaId}` : '' + contaId ? `contaId=${contaId}` : '';
 
-		const { data, headers } = await Api.get( `/titulos?${filtro}_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nomeCompleto_like=${filter}`);
+		const { data, headers } = await Api.get( `/titulos?${filtro}_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nome_like=${filter}`);
 
 		if(data){
 			return{

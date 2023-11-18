@@ -14,7 +14,7 @@ type TCarteirasETotalCount = {
 
 const getAll = async(page = 1, filter = ''): Promise<TCarteirasETotalCount | Error> => {
 	try{
-		const { data, headers } = await Api.get(`/carteiras?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nomeCompleto_like=${filter}`);
+		const { data, headers } = await Api.get(`/carteiras?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nome_like=${filter}`);
 
 		if(data){
 			return{

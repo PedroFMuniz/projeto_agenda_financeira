@@ -16,9 +16,9 @@ type TCategoriasETotalCount = {
 
 const getAll = async(page = 1, filter = '', carteiraId?: number, tipo?: 'Entrada' | 'Saida'): Promise<TCategoriasETotalCount | Error> => {
 	try{
-		const filtro = carteiraId ? `carteiraId=${carteiraId}` : '' + tipo ? `&tipo=${tipo}` : '';
+		const filtro = carteiraId ? `carteiraId=${carteiraId}&` : '' + (tipo ? `tipo=${tipo}&` : '');
 
-		const { data, headers } = await Api.get( `/categorias?${filtro}_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nomeCompleto_like=${filter}`);
+		const { data, headers } = await Api.get( `/categorias?${filtro}_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nome_like=${filter}`);
 
 		if(data){
 			return{
