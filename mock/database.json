@@ -1,0 +1,57 @@
+{
+    "carteiras":[
+        {
+            "id":0,
+            "nome":"Inicial"
+        }
+    ],
+    "categorias":[
+        {
+            "id":0,
+            "nome":"Inicial",
+            "tipo":"Entrada",
+            "carteiraId":0
+        }
+    ],
+    "subcategorias":[
+        {
+            "id":0,
+            "nome":"Inicial",
+            "categoriaId":0
+        }
+    ],
+    "contas":[
+        {
+            "id":0,
+            "nome":"Inicial"
+        }
+    ],
+    "formas_de_pagamento":[
+        {
+            "id":0,
+            "nome":"Inicial",
+            "tipo":"Entrada",
+            "taxa":{
+                "a_vista":1.0,
+                "prazo_fixa":1.0,
+                "por_parcela":0,
+                "fixa":0
+            },
+            "parcelado":false,
+            "recebimento":0
+        }
+    ],
+    "titulos":[
+        {
+            "id":0,
+            "contaId":0,
+            "paiId":null,
+            "parcelas":1,
+            "subcategoriaId": 0,
+            "valor": 100,
+            "descricao":"Teste",
+            "formaDePagamentoId": 0,
+            "vencimento": "2019-01-25T02:00:00.000Z"
+        }
+    ]
+}
