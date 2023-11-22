@@ -1,23 +1,18 @@
-import { Icon, IconButton, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Icon, IconButton, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { FerramentasListagem } from '../../shared/components';
 import { Environment } from '../../shared/environment';
 import { useDebounce } from '../../shared/hooks';
 import { LayoutBase } from '../../shared/layouts/LayoutBase';
-import { CarteirasService, ICarteiraData } from '../../shared/services/carteiras/CarteirasService';
+import { FormasDePagamentoService, IListagemFormaDePagamento } from '../../shared/services/formas-de-pagamento/FormasDePagamentoService';
 
 
-export const ListagemCarteiras:React.FC = () =>{
-
-	const theme = useTheme();
-	const smDown = useMediaQuery(theme.breakpoints.down('sm'));
-	const mdDown = useMediaQuery(theme.breakpoints.down('md'));
-
+export const ListagemformasDePagamento:React.FC = () =>{
 
 	const [searchParams, setSearchParams] = useSearchParams();
 
-	const [carteiras, setCarteiras] = useState<ICarteiraData[]>([]);
+	const [formasDePagamento, setformasDePagamento] = useState<IListagemFormaDePagamento[]>([]);
 	const [totalCount, setTotalCount] = useState(0);
 	const [isLoading, setIsLoading] = useState(true);
 
@@ -37,13 +32,13 @@ export const ListagemCarteiras:React.FC = () =>{
 		debounce(() => {
 			setIsLoading(true);
 
-			CarteirasService.getAll(pagina, busca)
+			FormasDePagamentoService.getAll(pagina, busca)
 				.then((result) => {
 					setIsLoading(false);
 					if(result instanceof Error){
 						alert(result.message);
 					}else{
-						setCarteiras(result.data);
+						setformasDePagamento(result.data);
 						setTotalCount(result.totalCount);
 					}
 				});
@@ -53,14 +48,14 @@ export const ListagemCarteiras:React.FC = () =>{
 
 	const handleDelete = useCallback((id: number) => {
 		setIsLoading(true);
-		CarteirasService.deleteById(id)
+		FormasDePagamentoService.deleteById(id)
 			.then((result) =>{
 				setIsLoading(false);
 				if(result instanceof Error){
 					alert(result.message);
 				}else{
-					setCarteiras((oldCarteiras) => ([...oldCarteiras.filter(
-						carteira => carteira.id !== id
+					setformasDePagamento((oldformasDePagamento) => ([...oldformasDePagamento.filter(
+						categoria => categoria.id !== id
 					)]));
 				}
 			});
@@ -68,44 +63,50 @@ export const ListagemCarteiras:React.FC = () =>{
 
 	return(
 		<LayoutBase
-			title='Carteiras'
+			title='Listagem de Formas De Pagamento'
 			toolBar={<FerramentasListagem 
 				mostrarInputBusca
 				textoBotaoNovo='Nova'
 				textoInputBusca={busca}
 				onChangeInputBusca={(e) => setSearchParams({busca: e, pagina: '1'}, {replace: true})}
-				onCLickBotaoNovo={() => navigate('/carteiras/detalhe/nova')}
+				onCLickBotaoNovo={() => navigate('/formasDePagamento/detalhe/nova')}
 			/>}
 		>
 			<TableContainer component={Paper} variant='outlined' sx={{m: 1, width: 'auto'}}>
 				<Table>
 					<TableHead>
 						<TableRow>
-							<TableCell width={theme.spacing(10)}>Ações</TableCell>
-							<TableCell>Carteira</TableCell>
+							<TableCell width={100}>Ações</TableCell>
+							<TableCell width={150}>Tipo</TableCell>
+							<TableCell>Nome da forma de pagamento</TableCell>
+							<TableCell>Parcelada?</TableCell>
+							<TableCell>Intervalo para recebimento</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{carteiras.map(
-							carteira => (
+						{formasDePagamento.map(
+							formaDePagamento => (
 								<TableRow
-									key={carteira.id}
+									key={formaDePagamento.id}
 								>
 									<TableCell>
 										<IconButton
 											size='small'
-											onClick={() => navigate(`/carteiras/detalhe/${carteira.id}`)}
+											onClick={() => navigate(`/formasDePagamento/detalhe/${formaDePagamento.id}`)}
 										>
 											<Icon>edit</Icon>
 										</IconButton>
 										<IconButton
 											size='small'
-											onClick={() => handleDelete(carteira.id)}
+											onClick={() => handleDelete(formaDePagamento.id)}
 										>
 											<Icon>delete</Icon>
 										</IconButton>
 									</TableCell>
-									<TableCell><Typography width={smDown ? theme.spacing(25) : (mdDown ? theme.spacing(50) : undefined)} whiteSpace='nowrap' overflow='hidden' textOverflow='ellipsis'>{carteira.nome}</Typography></TableCell>
+									<TableCell>{formaDePagamento.tipo}</TableCell>
+									<TableCell>{formaDePagamento.nome}</TableCell>
+									<TableCell>{formaDePagamento.parcelado ? 'Sim' : 'Não'}</TableCell>
+									<TableCell>{formaDePagamento.recebimento + ' dias'}</TableCell>
 								</TableRow>
 							)
 						)}
@@ -125,7 +126,7 @@ export const ListagemCarteiras:React.FC = () =>{
 						)}
 						{(!isLoading && totalCount > 0) && (
 							<TableRow>
-								<TableCell colSpan={2}>
+								<TableCell colSpan={3}>
 									<Pagination 
 										count={Math.ceil(totalCount/Environment.LIMITE_DE_LINHAS)}
 										page={pagina}

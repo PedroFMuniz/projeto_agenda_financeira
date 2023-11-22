@@ -1,4 +1,4 @@
-import { Icon, IconButton, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
+import { Icon, IconButton, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { FerramentasListagem } from '../../shared/components';
@@ -9,6 +9,10 @@ import { CategoriasService, ICategoriaData } from '../../shared/services/categor
 import { SubcategoriasService, ISubcategoriaData } from '../../shared/services/subcategorias/SubcategoriasService';
 
 export const ListagemSubcategorias:React.FC = () =>{
+
+	const theme = useTheme();
+	const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+	const mdDown = useMediaQuery(theme.breakpoints.down('md'));
 
 	const [searchParams, setSearchParams] = useSearchParams();
 
@@ -78,7 +82,7 @@ export const ListagemSubcategorias:React.FC = () =>{
 
 	return(
 		<LayoutBase
-			title='Listagem de subcategorias'
+			title='Subcategorias'
 			toolBar={<FerramentasListagem 
 				mostrarInputBusca
 				textoBotaoNovo='Nova'
@@ -91,9 +95,9 @@ export const ListagemSubcategorias:React.FC = () =>{
 				<Table>
 					<TableHead>
 						<TableRow>
-							<TableCell width={100}>Ações</TableCell>
-							<TableCell width={200}>Categoria</TableCell>
-							<TableCell>Nome da subcategoria</TableCell>
+							<TableCell width={theme.spacing(10)}>Ações</TableCell>
+							<TableCell>Categoria</TableCell>
+							<TableCell>Nome</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -116,8 +120,8 @@ export const ListagemSubcategorias:React.FC = () =>{
 											<Icon>delete</Icon>
 										</IconButton>
 									</TableCell>
-									<TableCell>{categorias.find(categoria => categoria.id === subcategoria.categoriaId)?.nome}</TableCell>
-									<TableCell>{subcategoria.nome}</TableCell>
+									<TableCell><Typography width={smDown ? theme.spacing(9) : (mdDown ? theme.spacing(20) : undefined)} whiteSpace='nowrap' overflow='hidden' textOverflow='ellipsis'>{categorias.find(categoria => categoria.id === subcategoria.categoriaId)?.nome}</Typography></TableCell>
+									<TableCell><Typography width={smDown ? theme.spacing(15) : (mdDown ? theme.spacing(30) : undefined)} whiteSpace='nowrap' overflow='hidden' textOverflow='ellipsis'>{subcategoria.nome}</Typography></TableCell>
 								</TableRow>
 							)
 						)}

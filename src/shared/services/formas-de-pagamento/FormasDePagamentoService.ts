@@ -33,7 +33,7 @@ const getAll = async(page = 1, filter = '', tipo?: 'Entrada' | 'Saida'): Promise
 	try{
 		const filtro = tipo ? `tipo=${tipo}` : '';
 
-		const { data, headers } = await Api.get( `/formadepagamentos?${filtro}_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nome_like=${filter}`);
+		const { data, headers } = await Api.get( `/formas_de_pagamento?${filtro}_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nome_like=${filter}`);
 
 		if(data){
 			return{
@@ -50,7 +50,7 @@ const getAll = async(page = 1, filter = '', tipo?: 'Entrada' | 'Saida'): Promise
 
 const getById = async(id: number): Promise<IDetalheFormaDePagamento | Error> => {
 	try{
-		const { data } = await Api.get(`/formadepagamentos/${id}`);
+		const { data } = await Api.get(`/formas_de_pagamento/${id}`);
 
 		if(data){
 			return data;
@@ -64,7 +64,7 @@ const getById = async(id: number): Promise<IDetalheFormaDePagamento | Error> => 
 
 const create = async(dados: Omit<IDetalheFormaDePagamento, 'id'>): Promise<number | Error> => {
 	try{
-		const { data } = await Api.post('/formadepagamentos', dados);
+		const { data } = await Api.post('/formas_de_pagamento', dados);
 
 		if(data){
 			return data;
@@ -78,7 +78,7 @@ const create = async(dados: Omit<IDetalheFormaDePagamento, 'id'>): Promise<numbe
 
 const updateById = async(dados: IDetalheFormaDePagamento): Promise<void | Error> => {
 	try{
-		await Api.put(`/formadepagamentos/${dados.id}`, dados);
+		await Api.put(`/formas_de_pagamento/${dados.id}`, dados);
 	}catch(error){
 		return new Error((error as {message: string}).message || 'Erro ao atualizar o registro.');
 	}
@@ -86,13 +86,13 @@ const updateById = async(dados: IDetalheFormaDePagamento): Promise<void | Error>
 
 const deleteById = async(id: number): Promise<void | Error> => {
 	try{
-		await Api.delete(`/formadepagamentos/${id}`);
+		await Api.delete(`/formas_de_pagamento/${id}`);
 	}catch(error){
 		return new Error((error as {message: string}).message || 'Erro ao deletar o registro.');
 	}
 };
 
-export const FormaDePagamentosService = {
+export const FormasDePagamentoService = {
 	getAll,
 	getById,
 	create,

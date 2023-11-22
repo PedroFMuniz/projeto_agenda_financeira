@@ -5,8 +5,21 @@
       "nome": "Inicial"
     }
   ],
-  "categorias": [],
-  "subcategorias": [],
+  "categorias": [
+    {
+      "id": 0,
+      "nome": "Inicial",
+      "tipo": "Entrada",
+      "carteiraId": 0
+    }
+  ],
+  "subcategorias": [
+    {
+      "id": 0,
+      "nome": "Inicial",
+      "categoriaId": 0
+    }
+  ],
   "contas": [
     {
       "id": 0,
