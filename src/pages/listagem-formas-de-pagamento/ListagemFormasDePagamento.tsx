@@ -109,9 +109,9 @@ export const ListagemformasDePagamento:React.FC = () =>{
 										</IconButton>
 									</TableCell>
 									<TableCell>{smDown ? (<Icon fontSize='small' color={formaDePagamento.tipo === 'Entrada' ? 'success' : 'error'}>circle</Icon>) : formaDePagamento.tipo}</TableCell>
-									<TableCell><Typography  width={smDown ? theme.spacing(20) : (mdDown ? theme.spacing(40) : undefined)} whiteSpace='nowrap' overflow='hidden' textOverflow='ellipsis'>{formaDePagamento.nome}</Typography></TableCell>
-									{!smDown && (<TableCell>{formaDePagamento.parcelado ? 'Sim' : 'Não'}</TableCell>)}
-									{!smDown && (<TableCell>{formaDePagamento.recebimento + ' dias'}</TableCell>)}
+									<TableCell><Typography variant='body1' width={smDown ? theme.spacing(20) : (mdDown ? theme.spacing(40) : undefined)} whiteSpace='nowrap' overflow='hidden' textOverflow='ellipsis'>{formaDePagamento.nome}</Typography></TableCell>
+									{!smDown && (<TableCell><Typography variant='body1'>{formaDePagamento.parcelado ? 'Sim' : 'Não'}</Typography></TableCell>)}
+									{!smDown && (<TableCell><Typography variant='body1'>{formaDePagamento.recebimento + ' dias'}</Typography></TableCell>)}
 								</TableRow>
 							)
 						)}

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { Dashboard, ListagemCarteiras, ListagemCategorias, ListagemSubcategorias, ListagemformasDePagamento } from '../pages';
+import { Dashboard, ListagemCarteiras, ListagemCategorias, ListagemSubcategorias, ListagemformasDePagamento, ListagemTitulos } from '../pages';
 import { useDrawerContext } from '../shared/contexts';
 
 
@@ -35,6 +35,11 @@ export const AppRoutes = () => {
 				label: 'Formas de pagamento',
 				icon: 'money',
 				path: '/formas-de-pagamento'
+			},
+			{
+				label: 'Títulos',
+				icon: 'title',
+				path:'/titulos'
 			}
 		]);
 	}, []);
@@ -46,6 +51,7 @@ export const AppRoutes = () => {
 			<Route path='/categorias' element={<ListagemCategorias />} />
 			<Route path='/subcategorias' element={<ListagemSubcategorias />} />
 			<Route path='/formas-de-pagamento' element={<ListagemformasDePagamento />} />
+			<Route path='/titulos' element={<ListagemTitulos />} />
 
 
 			<Route path='*' element={<Navigate to='/pagina-inicial' />} />

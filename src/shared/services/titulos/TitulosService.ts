@@ -10,6 +10,7 @@ export interface IListagemTitulo{
 	valor: number,
 	descricao: string,
 	vencimento: Dayjs,
+	pago: boolean
 }
 
 export interface IDetalheTitulo{
@@ -22,6 +23,7 @@ export interface IDetalheTitulo{
 	descricao: string,
 	formaDePagamentoId: number,
 	vencimento: Dayjs,
+	pago: boolean
 }
 
 type TTitulosETotalCount = {
@@ -31,9 +33,9 @@ type TTitulosETotalCount = {
 
 const getAll = async(page = 1, filter = '', subcategoriaId?: number, contaId?: number): Promise<TTitulosETotalCount | Error> => {
 	try{
-		const filtro = subcategoriaId ? `subcategoriaId=${subcategoriaId}` : '' + contaId ? `contaId=${contaId}` : '';
+		const filtro = subcategoriaId ? `subcategoriaId=${subcategoriaId}&` : '' + (contaId ? `contaId=${contaId}&` : '');
 
-		const { data, headers } = await Api.get( `/titulos?${filtro}_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nome_like=${filter}`);
+		const { data, headers } = await Api.get( `/titulos?${filtro}_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&descricao_like=${filter}`);
 
 		if(data){
 			return{

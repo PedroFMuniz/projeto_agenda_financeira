@@ -106,8 +106,8 @@ export const ListagemCategorias:React.FC = () =>{
 											<Icon>delete</Icon>
 										</IconButton>
 									</TableCell>
-									<TableCell>{smDown ? (<Icon color={categoria.tipo === 'Entrada' ? 'success' : 'error'} fontSize='small'>circle</Icon>) : (<Typography width={theme.spacing(20)} whiteSpace='nowrap' overflow='hidden' textOverflow='ellipsis'>{categoria.tipo}</Typography>)}</TableCell>
-									<TableCell><Typography width={smDown ? theme.spacing(20) : (mdDown ? theme.spacing(40) : undefined)} whiteSpace='nowrap' overflow='hidden' textOverflow='ellipsis'>{categoria.nome}</Typography></TableCell>
+									<TableCell>{smDown ? (<Icon color={categoria.tipo === 'Entrada' ? 'success' : 'error'} fontSize='small'>circle</Icon>) : (<Typography variant='body1' width={theme.spacing(20)} whiteSpace='nowrap' overflow='hidden' textOverflow='ellipsis'>{categoria.tipo}</Typography>)}</TableCell>
+									<TableCell><Typography variant='body1' width={smDown ? theme.spacing(20) : (mdDown ? theme.spacing(40) : undefined)} whiteSpace='nowrap' overflow='hidden' textOverflow='ellipsis'>{categoria.nome}</Typography></TableCell>
 								</TableRow>
 							)
 						)}

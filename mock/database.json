@@ -41,5 +41,18 @@
       "recebimento": 0
     }
   ],
-  "titulos": []
+  "titulos": [
+    {
+      "id": 0,
+      "contaId": 0,
+      "paiId": null,
+      "parcelas": 0,
+      "subcategoriaId": 0,
+      "valor": 1.00,
+      "descricao": "",
+      "formadepagamentoId": 0,
+      "vencimento": "12-07-2020",
+      "pago": true
+    }
+  ]
 }

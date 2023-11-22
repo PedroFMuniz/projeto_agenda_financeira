@@ -106,7 +106,7 @@ export const ListagemCarteiras:React.FC = () =>{
 											<Icon>delete</Icon>
 										</IconButton>
 									</TableCell>
-									<TableCell><Typography width={smDown ? theme.spacing(25) : (mdDown ? theme.spacing(50) : undefined)} whiteSpace='nowrap' overflow='hidden' textOverflow='ellipsis'>{carteira.nome}</Typography></TableCell>
+									<TableCell><Typography variant='body1' width={smDown ? theme.spacing(25) : (mdDown ? theme.spacing(50) : undefined)} whiteSpace='nowrap' overflow='hidden' textOverflow='ellipsis'>{carteira.nome}</Typography></TableCell>
 								</TableRow>
 							)
 						)}
