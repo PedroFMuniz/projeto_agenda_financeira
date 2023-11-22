@@ -2,10 +2,11 @@
 
 import { Box, ThemeProvider } from '@mui/material';
 import { BrowserRouter } from 'react-router-dom';
-import { AppRoutes } from './routes';
+
 import { MenuLateral } from './shared/components/menu-lateral/MenuLateral';
 import { DrawerProvider } from './shared/contexts';
 import { DefaultTheme } from './shared/themes';
+import { AppRoutes } from './routes';
 
 
 export const App = () => {

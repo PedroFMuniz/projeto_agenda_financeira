@@ -1,5 +1,4 @@
-import { useRef } from 'react';
-import { useCallback } from 'react';
+import { useRef, useCallback } from 'react';
 
 
 export const useDebounce = (delay = 300, notDelayInFirstTime = true) =>{

@@ -1,14 +1,19 @@
-import { Icon, IconButton, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Icon, IconButton, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+
+import { FormasDePagamentoService, IListagemFormaDePagamento } from '../../shared/services/formas-de-pagamento/FormasDePagamentoService';
 import { FerramentasListagem } from '../../shared/components';
+import { LayoutBase } from '../../shared/layouts/LayoutBase';
 import { Environment } from '../../shared/environment';
 import { useDebounce } from '../../shared/hooks';
-import { LayoutBase } from '../../shared/layouts/LayoutBase';
-import { FormasDePagamentoService, IListagemFormaDePagamento } from '../../shared/services/formas-de-pagamento/FormasDePagamentoService';
 
 
 export const ListagemformasDePagamento:React.FC = () =>{
+
+	const theme = useTheme();
+	const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+	const mdDown = useMediaQuery(theme.breakpoints.down('md'));
 
 	const [searchParams, setSearchParams] = useSearchParams();
 
@@ -63,7 +68,7 @@ export const ListagemformasDePagamento:React.FC = () =>{
 
 	return(
 		<LayoutBase
-			title='Listagem de Formas De Pagamento'
+			title='Formas De Pagamento'
 			toolBar={<FerramentasListagem 
 				mostrarInputBusca
 				textoBotaoNovo='Nova'
@@ -76,11 +81,11 @@ export const ListagemformasDePagamento:React.FC = () =>{
 				<Table>
 					<TableHead>
 						<TableRow>
-							<TableCell width={100}>Ações</TableCell>
-							<TableCell width={150}>Tipo</TableCell>
-							<TableCell>Nome da forma de pagamento</TableCell>
-							<TableCell>Parcelada?</TableCell>
-							<TableCell>Intervalo para recebimento</TableCell>
+							<TableCell width={theme.spacing(10)}>Ações</TableCell>
+							<TableCell>Tipo</TableCell>
+							<TableCell>Nome</TableCell>
+							{!smDown && (<TableCell>Parcelada?</TableCell>)}
+							{!smDown && (<TableCell>Intervalo para recebimento</TableCell>)}
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -103,10 +108,10 @@ export const ListagemformasDePagamento:React.FC = () =>{
 											<Icon>delete</Icon>
 										</IconButton>
 									</TableCell>
-									<TableCell>{formaDePagamento.tipo}</TableCell>
-									<TableCell>{formaDePagamento.nome}</TableCell>
-									<TableCell>{formaDePagamento.parcelado ? 'Sim' : 'Não'}</TableCell>
-									<TableCell>{formaDePagamento.recebimento + ' dias'}</TableCell>
+									<TableCell>{smDown ? (<Icon fontSize='small' color={formaDePagamento.tipo === 'Entrada' ? 'success' : 'error'}>circle</Icon>) : formaDePagamento.tipo}</TableCell>
+									<TableCell><Typography  width={smDown ? theme.spacing(20) : (mdDown ? theme.spacing(40) : undefined)} whiteSpace='nowrap' overflow='hidden' textOverflow='ellipsis'>{formaDePagamento.nome}</Typography></TableCell>
+									{!smDown && (<TableCell>{formaDePagamento.parcelado ? 'Sim' : 'Não'}</TableCell>)}
+									{!smDown && (<TableCell>{formaDePagamento.recebimento + ' dias'}</TableCell>)}
 								</TableRow>
 							)
 						)}
